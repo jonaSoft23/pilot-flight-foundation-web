@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
+    "@apollo/react-hooks": "^4.0.0",
     "@emotion/cache": "11.10.5",
     "@emotion/react": "11.10.6",
     "@emotion/server": "11.10.0",
@@ -20,10 +22,14 @@
     "@mui/system": "5.11.9",
     "@mui/x-date-pickers": "5.0.19",
     "apexcharts": "3.37.0",
+    "apollo-cache-inmemory": "^1.6.6",
+    "apollo-client": "^2.6.10",
+    "apollo-link-http": "^1.5.17",
     "date-fns": "2.29.3",
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "formik": "2.2.9",
+    "graphql": "^16.6.0",
     "next": "13.3.4",
     "nprogress": "0.2.0",
     "prop-types": "15.8.1",

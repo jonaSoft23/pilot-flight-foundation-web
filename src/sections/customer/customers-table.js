@@ -16,8 +16,23 @@ import {
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
+import { useQuery } from '@apollo/react-hooks';
+import getAllMembers from '@/queries/getMembers';
 
 export const CustomersTable = (props) => {
+
+  var loader = []
+  const members = useQuery(getAllMembers)
+  
+  if (members.data){
+    loader = members.data.members;
+    console.log(loader)
+  }
+
+  if (members.error){
+    console.log(members.error)
+  }
+
   const {
     count = 0,
     items = [],
@@ -152,5 +167,7 @@ CustomersTable.propTypes = {
   onSelectOne: PropTypes.func,
   page: PropTypes.number,
   rowsPerPage: PropTypes.number,
-  selected: PropTypes.array
+  selected: PropTypes.array,
+  getAllMembers: PropTypes.object,
+  members: PropTypes.object,
 };
