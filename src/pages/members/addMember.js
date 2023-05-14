@@ -32,18 +32,6 @@ const Page = () => {
               <Stack spacing={1}>
                 <Typography variant="h4">Add Member</Typography>
               </Stack>
-              <div>
-                <Button
-                  startIcon={
-                    <SvgIcon fontSize="small">
-                      <PlusIcon />
-                    </SvgIcon>
-                  }
-                  variant="contained"
-                >
-                  Add
-                </Button>
-              </div>
             </Stack>
             <MembersForm />
           </Stack>

@@ -21,18 +21,6 @@ import getAllMembers from '@/queries/getMembers';
 
 export const CustomersTable = (props) => {
 
-  var loader = []
-  const members = useQuery(getAllMembers)
-  
-  if (members.data){
-    loader = members.data.members;
-    console.log(loader)
-  }
-
-  if (members.error){
-    console.log(members.error)
-  }
-
   const {
     count = 0,
     items = [],
