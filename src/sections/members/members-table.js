@@ -22,7 +22,6 @@ import { useQuery } from "@apollo/react-hooks";
 import getAllMembers from "@/queries/getMembers";
 
 export const MembersTable = () => {
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -33,13 +32,13 @@ export const MembersTable = () => {
     loading: getMembersLoading,
     error: getMembersError,
     data: membersResult,
-  } = useQuery(getAllMembers,{ variables: { offset: page * rowsPerPage, limit: rowsPerPage }, });
-
+  } = useQuery(getAllMembers, {
+    variables: { offset: page * rowsPerPage, limit: rowsPerPage },
+  });
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -50,7 +49,6 @@ export const MembersTable = () => {
     // console.log(JSON.stringify(membersResult?.members?.data));
     loader = membersResult?.members?.data;
     totalMembers = membersResult?.members?.meta?.pagination?.total;
-    console.log(JSON.stringify(totalMembers));
   }
 
   if (getMembersLoading) {
@@ -62,24 +60,9 @@ export const MembersTable = () => {
   }
 
   if (getMembersError) {
-    console.log(JSON.stringify(getMembersError))
+    console.log(JSON.stringify(getMembersError));
     return <p>Something Went Wrong !!!</p>;
   }
-
-  const membersA = [
-    {
-      id: 1,
-      firstName: "Jonathan",
-      lastName: "Owot",
-      contact: "0000",
-    },
-    {
-      id: 2,
-      firstName: "John",
-      lastName: "Owot",
-      contact: "0000",
-    },
-  ];
 
   return (
     <>
@@ -97,17 +80,26 @@ export const MembersTable = () => {
               <TableBody>
                 {loader.map((item) => {
                   return (
-                    <>
-                      <TableRow key={item.id}>
-                        <TableCell>
-                          {item?.attributes?.first_name +
-                            " " +
-                            item?.attributes?.last_name}
-                        </TableCell>
-                        <TableCell>{item?.attributes?.last_name}</TableCell>
-                        <TableCell>{item?.attributes?.contact}</TableCell>
-                      </TableRow>
-                    </>
+                    <TableRow key={item.id}>
+                      <TableCell>
+                        <Stack alignItems="center" direction="row" spacing={2}>
+                          <Avatar>
+                            {getInitials(
+                              item?.attributes?.first_name +
+                                " " +
+                                item?.attributes?.last_name
+                            )}
+                          </Avatar>
+                          <Typography variant="subtitle2">
+                            {item?.attributes?.first_name +
+                              " " +
+                              item?.attributes?.last_name}
+                          </Typography>
+                        </Stack>
+                      </TableCell>
+                      <TableCell>{item?.attributes?.last_name}</TableCell>
+                      <TableCell>{item?.attributes?.contact}</TableCell>
+                    </TableRow>
                   );
                 })}
               </TableBody>

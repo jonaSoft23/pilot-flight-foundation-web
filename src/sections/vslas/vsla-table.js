@@ -16,9 +16,10 @@ import {
 } from '@mui/material';
 import { Scrollbar } from 'src/components/scrollbar';
 import { getInitials } from 'src/utils/get-initials';
+import { useQuery } from '@apollo/react-hooks';
+import getAllMembers from '@/queries/getMembers';
 
-
-export const CustomersTable = (props) => {
+export const VslaTable = (props) => {
 
   const {
     count = 0,
@@ -143,7 +144,7 @@ export const CustomersTable = (props) => {
   );
 };
 
-CustomersTable.propTypes = {
+VslaTable.propTypes = {
   count: PropTypes.number,
   items: PropTypes.array,
   onDeselectAll: PropTypes.func,

@@ -33,7 +33,7 @@ export const OverviewTotalProfit = (props) => {
             }}
           >
             <SvgIcon>
-              <CurrencyDollarIcon />
+              <CurrencyDollarIcon />            
             </SvgIcon>
           </Avatar>
         </Stack>

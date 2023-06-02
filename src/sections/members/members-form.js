@@ -1,7 +1,17 @@
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import { Box, Grid, Card, Alert, Snackbar } from "@mui/material";
+import {
+  Box,
+  Grid,
+  Card,
+  Alert,
+  Snackbar,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from "@mui/material";
 import { Scrollbar } from "src/components/scrollbar";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
@@ -11,10 +21,11 @@ import addMemberMutation from "@/mutations/addMemberMutation";
 
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("This is a required field"),
-
   lastName: yup.string().required("This is a required field"),
-
   contact: yup.string().required("This is a required field"),
+  gender: yup.string().required("This is a required field"),
+  age: yup.string().required("This is a required field"),
+  address: yup.string().required("This is a required field"),
 });
 
 export const MembersForm = () => {
@@ -32,6 +43,11 @@ export const MembersForm = () => {
 
   const [open, setOpen] = useState(false); //open success alert
   const [displayFailure, setDisplayFailure] = useState(false); //open failure alert
+  const [age, setAge] = useState("");
+
+  const handleChange = (event) => {
+    setAge(event.target.value);
+  };
 
   const onSubmit = async (data) => {
     try {
@@ -40,11 +56,9 @@ export const MembersForm = () => {
         variables: {
           FirstName: data.firstName,
           LastName: data.lastName,
-          Contact: data.contact
+          Contact: data.contact,
         },
       });
-
-      console.log(json.stringify(Result));
 
       if (!mutationError) {
         console.log(`Sucessfully admitted ${data.lastName}`);
@@ -56,6 +70,7 @@ export const MembersForm = () => {
         reset();
       }
     } catch (e) {
+      console.log(e);
       console.log(JSON.stringify(mutationError, null, 2));
 
       //Show Failure alert
@@ -108,6 +123,44 @@ export const MembersForm = () => {
                   helperText={errors?.contact?.message}
                 />
               </Grid>
+              <Grid item xs={8} md={6}>
+                <TextField
+                  id="address"
+                  label="Address"
+                  variant="outlined"
+                  fullWidth
+                  {...register("address")}
+                  error={errors.address ? true : false}
+                  helperText={errors?.address?.message}
+                />
+              </Grid>
+              <Grid item xs={8} md={6}>
+                <TextField
+                  select
+                  variant="outlined"
+                  label="Gender"
+                  fullWidth
+                  required
+                  {...register("gender")}
+                  SelectProps={{ native: true }}
+                  sx={{ pt: 2, pb: 2, pr: 1, pl: 1 }}
+                >
+                  <option value="">Select gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </TextField>
+              </Grid>
+              <Grid item xs={8} md={6}>
+                <TextField
+                  id="age"
+                  label="Age"
+                  variant="outlined"
+                  fullWidth
+                  {...register("age")}
+                  error={errors.age ? true : false}
+                  helperText={errors?.age?.message}
+                />
+              </Grid>
             </Grid>
             <Grid container spacing={3} sx={{ py: 4 }}>
               <Grid item xs={8} md={6}>
@@ -115,7 +168,7 @@ export const MembersForm = () => {
                   variant="contained"
                   color="primary"
                   type="submit"
-                  disabled={isSubmitting || isValid}
+                  disabled={isSubmitting || !isValid}
                 >
                   Submit
                 </Button>

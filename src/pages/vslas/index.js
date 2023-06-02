@@ -178,10 +178,24 @@ const useCustomerIds = (customers) => {
 };
 
 const Page = () => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const customers = useCustomers(page, rowsPerPage);
+  const customersIds = useCustomerIds(customers);
+  const customersSelection = useSelection(customersIds);
+
+  const handlePageChange = useCallback((event, value) => {
+    setPage(value);
+  }, []);
+
+  const handleRowsPerPageChange = useCallback((event) => {
+    setRowsPerPage(event.target.value);
+  }, []);
+
   return (
     <>
       <Head>
-        <title>Members | Pilot Flight Foundation</title>
+        <title>VSLAs | Pilot Flight Foundation</title>
       </Head>
       <Box
         component="main"
@@ -233,7 +247,20 @@ const Page = () => {
                 </Button>
               </div>
             </Stack>
-            <MembersTable />
+            <CustomersSearch />
+            <CustomersTable
+              count={data.length}
+              items={customers}
+              onDeselectAll={customersSelection.handleDeselectAll}
+              onDeselectOne={customersSelection.handleDeselectOne}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleRowsPerPageChange}
+              onSelectAll={customersSelection.handleSelectAll}
+              onSelectOne={customersSelection.handleSelectOne}
+              page={page}
+              rowsPerPage={rowsPerPage}
+              selected={customersSelection.selected}
+            />
           </Stack>
         </Container>
       </Box>
