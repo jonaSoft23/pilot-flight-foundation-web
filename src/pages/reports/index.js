@@ -38,7 +38,7 @@ const companies = [
     createdAt: '03/04/2019',
     description: 'Summarizes the number of loans secured by each member, the loan amounts, purposes, benefits in their businesses, repayment difficulties, and future loan intentions.',
     logo: '/assets/logos/logo-slack.png',
-    title: 'Loan Utilization Report',
+    title: 'Loan Utilization Report:',
     members: '857'
   },
   {
@@ -172,7 +172,3 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
-
-
-
-  

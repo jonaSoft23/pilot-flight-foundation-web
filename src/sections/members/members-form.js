@@ -19,6 +19,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@apollo/react-hooks";
 import addMemberMutation from "@/mutations/addMemberMutation";
 
+import { SelectChangeEvent } from "@mui/material/Select";
+
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("This is a required field"),
   lastName: yup.string().required("This is a required field"),
@@ -46,7 +48,7 @@ export const MembersForm = () => {
   const [age, setAge] = useState("");
 
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setCurrency(event.target.value);
   };
 
   const onSubmit = async (data) => {
@@ -90,7 +92,7 @@ export const MembersForm = () => {
             onSubmit={handleSubmit(onSubmit)}
           >
             <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   id="firstName"
                   label="First Name"
@@ -101,7 +103,7 @@ export const MembersForm = () => {
                   helperText={errors?.firstName?.message}
                 />
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} sm={6} md={4}>
                 <TextField
                   id="lastName"
                   label="Last Name"
@@ -112,7 +114,7 @@ export const MembersForm = () => {
                   helperText={errors?.lastName?.message}
                 />
               </Grid>
-              <Grid item xs={8} md={6}>
+              <Grid item xs={8} sm={6} md={4}>
                 <TextField
                   id="contact"
                   label="Contact"
@@ -125,17 +127,17 @@ export const MembersForm = () => {
               </Grid>
               <Grid item xs={8} md={6}>
                 <TextField
-                  id="address"
-                  label="Address"
+                  id="age"
+                  label="Age"
                   variant="outlined"
                   fullWidth
-                  {...register("address")}
-                  error={errors.address ? true : false}
-                  helperText={errors?.address?.message}
+                  {...register("age")}
+                  error={errors.age ? true : false}
+                  helperText={errors?.age?.message}
                 />
               </Grid>
               <Grid item xs={8} md={6}>
-                <TextField
+                {/* <TextField
                   select
                   variant="outlined"
                   label="Gender"
@@ -148,17 +150,50 @@ export const MembersForm = () => {
                   <option value="">Select gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
-                </TextField>
+                </TextField> */}
+
+                <FormControl variant="outlined">
+                  <InputLabel id="demo-simple-select-outlined-label">
+                    Age
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={age}
+                    onChange={handleChange}
+                    label="Age"
+                  >
+                    <MenuItem value="">
+                      <em>None</em>
+                    </MenuItem>
+                    <MenuItem value={10}>Ten</MenuItem>
+                    <MenuItem value={20}>Twenty</MenuItem>
+                    <MenuItem value={30}>Thirty</MenuItem>
+                  </Select>
+                </FormControl>
+
               </Grid>
               <Grid item xs={8} md={6}>
                 <TextField
-                  id="age"
-                  label="Age"
+                  id="address"
+                  label="Address"
                   variant="outlined"
                   fullWidth
-                  {...register("age")}
-                  error={errors.age ? true : false}
-                  helperText={errors?.age?.message}
+                  {...register("address")}
+                  error={errors.address ? true : false}
+                  helperText={errors?.address?.message}
+                />
+              </Grid>
+
+              <Grid item xs={8} md={6}>
+                <TextField
+                  id="address"
+                  label="VSLA"
+                  variant="outlined"
+                  fullWidth
+                  {...register("address")}
+                  error={errors.address ? true : false}
+                  helperText={errors?.address?.message}
                 />
               </Grid>
             </Grid>
